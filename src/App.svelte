@@ -1,91 +1,84 @@
 <script lang="typescript">
 	let currentNum = [];
-	let data = "0";
-	let result;
-	let paramA;
-	let paramB;
-
+	let data = "0"; //variable que muestra datos por pantalla
+	let paramA; //primera variable que añadimos y tambien el resultado final
+	let paramB; //variable 2
 	function getNumber(num) {
 		currentNum.push(num);
 		data = currentNum.toString().replace(/,/g, '');
 		if (operator == undefined) { 
 			paramA = data.split(" ");
-			paramA = parseInt(paramA);
-			console.log(paramA);
+			paramA = parseFloat(paramA);
 		}
-		else { 
-			paramB = parseInt(data); 
-			console.log(paramB);
-		}
-
+		else { paramB = parseFloat(data); }
 	}
-
 	let operator;
 	function chooseOperator(typeOf) { 
-		console.log(typeOf);
 		currentNum = []
-		return operator = typeOf; 
+		return operator = typeOf;
 	}
-
-
 	function calc() {
 		switch (operator) {
 			case "add":
-				return result = paramA + paramB;
+				paramA = paramA + paramB;
+			return data = paramA.toString();
 			case "subtract":
-				return result = paramA - paramB;
+				paramA = paramA - paramB;
+			return data = paramA.toString(); 
 			case "multiply":
-				return result = paramA * paramB;
+				paramA = paramA * paramB;
+			return data = paramA.toString();
 			case "divide":
-				if(paramB !== 0) { return result = paramA / paramB; }
+				if(paramB !== 0) { 
+					paramA = paramA / paramB;
+					return data = paramA.toString();
+				}
 				else {
-					data = "Error";
-					return result = undefined; }
+					paramA = undefined; 
+					return data = "Error";
+				}
 			case "percent":
-				return result = paramA / 100;
+				paramA = paramA / 100;
+			return data = paramA.toString();
 			case "posinegative":
-				return result = paramA * -1;
+				paramA = paramA * -1;
+			return data = paramA.toString();
 			case "clear":
 				currentNum = [];
-				data = "0";
 				console.log(data);
 				operator = undefined;
-				return result = undefined;
+				paramA = undefined;
+			return data = "0";
 		}
 	}
-
 </script>
 
 <main class="calculator">
 	<!-- RESULTAT -->
 	<div class="resultats">
-		{#if result != undefined} 
-			<p>{result}</p>
-			{:else}
-			<p>{data}</p>
-		{/if}
+		<p>{data}</p>
 	</div>
 	
 	<!-- NUMPAD -->
 	<div class="calculator__keys">
-		<button id="clear" on:click={()=>{chooseOperator("clear"); calc()}} class="lightGray">AC</button>
-		<button id="posinegative" on:click={()=>{chooseOperator("posinegative"); calc()}} class="lightGray">+/-</button>
-		<button id="percent" on:click={()=>{chooseOperator("percent"); calc()}} class="lightGray">%</button>
-		<button id="divide" on:click={()=>{chooseOperator("divide")}} class="orange">÷</button>
-		<button on:click={()=>{getNumber(7)}} id="num7">7</button>
-		<button on:click={()=>{getNumber(8)}} id="num8">8</button>
-		<button on:click={()=>{getNumber(9)}} id="num9">9</button>
-		<button id="multiply" on:click={()=>{chooseOperator("multiply")}}  class="orange">×</button>
-		<button on:click={()=>{getNumber(4)}} id="num4">4</button>
-		<button on:click={()=>{getNumber(5)}} id="num5">5</button>
-		<button on:click={()=>{getNumber(6)}} id="num6">6</button>
-		<button id="less" on:click={()=>{chooseOperator("subtract")}} class="orange">−</button>
-		<button on:click={()=>{getNumber(1)}} id="num1">1</button>
-		<button on:click={()=>{getNumber(2)}} id="num2">2</button>
-		<button on:click={()=>{getNumber(3)}} id="num3">3</button>
-		<button id="plus" on:click={()=>{chooseOperator("add")}} class="orange">+</button>
-		<button on:click={()=>{getNumber(0)}} id="num0" class="zero">0</button>
-		<button id="decimal">,</button>
-		<button id="equal" on:click={calc}  class="orange">=</button>
+		<button id="clear" on:click={()=>{ chooseOperator("clear"); calc()} } class="lightGray">AC</button>
+		<button id="posinegative" on:click={()=>{ chooseOperator("posinegative"); calc() }} class="lightGray">+/-</button>
+		<button id="percent" on:click={()=>{ chooseOperator("percent"); calc() }} class="lightGray">%</button>
+		<button id="divide" on:click={()=>{ chooseOperator("divide") }} class="orange">÷</button>
+		<button on:click={()=>{ getNumber(7) }} id="num7">7</button>
+		<button on:click={()=>{ getNumber(8) }} id="num8">8</button>
+		<button on:click={()=>{ getNumber(9) }} id="num9">9</button>
+		<button id="multiply" on:click={()=>{ chooseOperator("multiply") }}  class="orange">×</button>
+		<button on:click={()=>{ getNumber(4) }} id="num4">4</button>
+		<button on:click={()=>{ getNumber(5) }} id="num5">5</button>
+		<button on:click={()=>{ getNumber(6) }} id="num6">6</button>
+		<button id="less" on:click={()=>{ chooseOperator("subtract") }} class="orange">−</button>
+		<button on:click={()=>{ getNumber(1) }} id="num1">1</button>
+		<button on:click={()=>{ getNumber(2) }} id="num2">2</button>
+		<button on:click={()=>{ getNumber(3) }} id="num3">3</button>
+		<button id="plus" on:click={()=>{ chooseOperator("add") }} class="orange">+</button>
+		<button on:click={()=>{ getNumber(0) }} id="num0" class="zero">0</button>
+		<button on:click={()=>{ getNumber(".") }} id="decimal">,</button>
+		<button id="equal" on:click={calc} class="orange">=</button>
 	</div>
 </main>
